@@ -12,6 +12,5 @@
         "psr-4": {
             "Codeauth\\CodeauthSdk\\": "src/"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }

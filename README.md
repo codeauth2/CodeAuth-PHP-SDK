@@ -6,7 +6,6 @@ Offical CodeAuth SDK. For more info, check the docs on the [official website](ht
 `composer require codeauth/codeauth-sdk`
 
 ## Sample Usage
----
 ```
 <?php
 
@@ -21,3 +20,4 @@ CodeAuth::Initialize("<your project endpoint>", "<your project id>");
 $r1 = CodeAuth::SignInEmail("<user email>");
 print_r($r1);
 ```
+

@@ -1,0 +1,17 @@
+{
+    "name": "codeauth/codeauth-sdk",
+    "description": "Official CodeAuth PHP SDK",
+    "type": "library",
+    "require": {
+        "php": "7.4",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Codeauth\\CodeauthSdk\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

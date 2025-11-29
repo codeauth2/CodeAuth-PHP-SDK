@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeAuthSDK;
+namespace CodeAuth;
 
 class CodeAuth {
     private static $Endpoint;
@@ -312,3 +312,4 @@ class CodeAuth {
 }
 
 ?>
+

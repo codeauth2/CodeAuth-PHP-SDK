@@ -1,4 +1,4 @@
-# CodeAuth Node.js SDK
+# CodeAuth PHP SDK
 [![Latest Stable Version](https://poser.pugx.org/codeauth/codeauth-sdk/v/stable.svg)](https://packagist.org/packages/codeauth/codeauth-sdk)
 [![Total Downloads](https://poser.pugx.org/codeauth/codeauth-sdk/downloads.svg)](https://packagist.org/packages/codeauth/codeauth-sdk)
 [![License](https://poser.pugx.org/codeauth/codeauth-sdk/license.svg)](https://packagist.org/packages/codeauth/codeauth-sdk)
@@ -160,3 +160,4 @@ switch ($result["error"])
 	case "connection_error": print("connection_error"); break; //sdk failed to connect to api server 
 }
 ```
+

@@ -2,6 +2,8 @@
 
 namespace CodeAuth;
 
+use \Exception;
+
 class CodeAuth {
     private static $Endpoint;
     private static $ProjectID;
@@ -312,4 +314,5 @@ class CodeAuth {
 }
 
 ?>
+
 

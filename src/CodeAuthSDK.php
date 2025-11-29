@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeAuth;
+namespace CodeAuthSDK;
 
 class CodeAuth {
     private static $Endpoint;
@@ -8,7 +8,7 @@ class CodeAuth {
     private static $UseCache;
     private static $CacheDuration;
     private static $CacheSession = [];
-    private static $CacheTimestamp;
+    private static $CacheExpiration;
     private static $HasInitialized = false;
 
     /**
@@ -29,7 +29,7 @@ class CodeAuth {
         self::$UseCache = $use_cache;
         self::$CacheDuration = $cache_duration * 1000;
         self::$CacheSession = [];
-        self::$CacheTimestamp = microtime(true) * 1000;
+        self::$CacheExpiration = microtime(true) * 1000 + self::$CacheDuration;
     }
     
     // -------
@@ -68,6 +68,7 @@ class CodeAuth {
             $payload = json_encode($body);
 
             $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -108,10 +109,10 @@ class CodeAuth {
     public static function SignInEmail($email) 
     {
         // make sure CodeAuth SDK has been initialized
-        EnsureInitialized();
+        self::EnsureInitialized();
 
         // make sure cache if valid
-        EnsureCache();
+        self::EnsureCache();
 
         return self::CallApiRequest(
             "/signin/email", 
@@ -131,10 +132,10 @@ class CodeAuth {
     public static function SignInEmailVerify($email, $code) 
     {
         // make sure CodeAuth SDK has been initialized
-        EnsureInitialized();
+        self::EnsureInitialized();
 
         // make sure cache if valid
-        EnsureCache();
+        self::EnsureCache();
 
         // call server and get response 
         $result = self::CallApiRequest(
@@ -163,10 +164,10 @@ class CodeAuth {
     public static function SignInSocial($social_type) 
     {
         // make sure CodeAuth SDK has been initialized
-        EnsureInitialized();
+        self::EnsureInitialized();
 
         // make sure cache if valid
-        EnsureCache();
+        self::EnsureCache();
 
         // return signin social 
         return self::request(
@@ -187,10 +188,10 @@ class CodeAuth {
     public static function SignInSocialVerify($social_type, $authorization_code) 
     {
         // make sure CodeAuth SDK has been initialized
-        EnsureInitialized();
+        self::EnsureInitialized();
 
         // make sure cache if valid
-        EnsureCache();
+        self::EnsureCache();
 
         // call server and get response 
         $result = self::CallApiRequest("/signin/socialverify", [
@@ -216,16 +217,15 @@ class CodeAuth {
     public static function SessionInfo($session_token) 
     {
         // make sure CodeAuth SDK has been initialized
-        EnsureInitialized();
+        self::EnsureInitialized();
 
         // make sure cache if valid
-        EnsureCache();
+        self::EnsureCache();
 
         // return the cached info if it is enabled, not expired and exist
         $now = microtime(true) * 1000;
         if (self::$UseCache && self::$CacheExpiration > $now) {
             if (isset(self::$CacheSession[$session_token])) {
-                print("used cachedd");
                 return self::$CacheSession[$session_token];
             }
         }
@@ -255,10 +255,10 @@ class CodeAuth {
     public static function SessionRefresh($session_token) 
     {        
         // make sure CodeAuth SDK has been initialized
-        EnsureInitialized();
+        self::EnsureInitialized();
 
         // make sure cache if valid
-        EnsureCache();
+        self::EnsureCache();
 
         // call server and get response 
         $result = self::CallApiRequest(
@@ -288,10 +288,10 @@ class CodeAuth {
     public static function SessionInvalidate($session_token, $invalidate_type) 
     {
         // make sure CodeAuth SDK has been initialized
-        EnsureInitialized();
+        self::EnsureInitialized();
         
         // make sure cache if valid
-        EnsureCache();
+        self::EnsureCache();
 
         // call server and get response 
         $result = self::CallApiRequest("/session/invalidate", [

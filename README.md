@@ -86,7 +86,7 @@ print($result["signin_url"]);
 ### Signin / Social Verify
 This is the next step after the user signs in with their social account. This request checks the authorization code given by the social media company in order to create a session token.
 ```php
-$result = CodeAuth::SignInSocialVerify("<social type>", "<authorization code>");
+$result = CodeAuth::SignInSocialVerify("<social type>", "<code>");
 switch ($result["error"])
 {
 	case "bad_json": print("bad_json"); break;
@@ -94,7 +94,7 @@ switch ($result["error"])
 	case "bad_ip_address": print("bad_ip_address"); break;
 	case "rate_limit_reached": print("rate_limit_reached"); break;
 	case "bad_social_type": print("bad_social_type"); break;
-	case "bad_authorization_code": print("bad_authorization_code"); break;
+	case "bad_authorization_code": print("bad_code"); break;
 	case "internal_error": print("internal_error"); break;
 	case "connection_error": print("connection_error"); break; //sdk failed to connect to api server
 }
@@ -160,4 +160,5 @@ switch ($result["error"])
 	case "connection_error": print("connection_error"); break; //sdk failed to connect to api server 
 }
 ```
+
 
